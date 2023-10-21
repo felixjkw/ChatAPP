@@ -20,7 +20,7 @@ io.on("connection", (socket) =>{
     console.log(`User connected: ${socket.id}`);
 
     socket.on("disconnet", ()=>{
-        console.log("User disconented", socket.id)
+        console.log(`User disonnected: ${socket.id}`)
     })
 });
 
