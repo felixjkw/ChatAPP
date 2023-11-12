@@ -9,9 +9,10 @@ function App() {
   const[room, setRoom] =useState("");
 
   const joinRoom = () => {
-
-    
-  }
+    if (username !== "" && room !== "") {
+      socket.emit("join_room", room)
+    }
+  };
 
 
 
@@ -19,9 +20,9 @@ function App() {
   return (
     <div className="App">
        <h3>Join a Chat</h3>
-       <input type = "text" placeholder='Max Mustermann'></input>
-       <input type = "text" placeholder='Room ID'></input>
-       <button>Join</button>
+       <input type = "text" placeholder='Max Mustermann' onChange={(event) => {setUsername(event.target.value)}}></input>
+       <input type = "text" placeholder='Room ID' onChange={(event) => {setRoom(event.target.value)}}></input>
+       <button onClick={joinRoom}>Join</button>
     </div>
   );
 }
