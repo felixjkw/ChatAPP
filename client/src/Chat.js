@@ -37,14 +37,14 @@ function Chat({socket, username, room }) {
             <div className="chat-body">
             {memoizedMessageList.map((messageContent, index) => {
                 return(
-                <div className="message">
+                <div className="message" id={username === messageContent.author ? "you" : "other"}>
                     <div>
                         <div className="message-content">
                             <p>{messageContent.message}</p>
                         </div>
                         <div className="message-meta">
-                            <p>{messageContent.time}</p>
-                            <p>{messageContent.author}</p>
+                            <p id ="time">{messageContent.time}</p>
+                            <p id ="author">{messageContent.author}</p>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@ function Chat({socket, username, room }) {
             </div>
             <div className="chat-footer">
                 <input type="text" placeholder="Hey..." onChange={(event) => {setCurrentMessage(event.target.value);
-                }}>       
+                }} onKeyDown={(event) => {event.key === "Enter" && sendMessage()}}>       
                 </input>
                 <button onClick={sendMessage}>&#9658;</button>
             </div>
