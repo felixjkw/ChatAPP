@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from "react"
+import ScrollToBottom from "react-scroll-to-bottom"
 
 function Chat({socket, username, room }) {
     const [currentMessage, setCurrentMessage] = useState("");
@@ -35,6 +36,7 @@ function Chat({socket, username, room }) {
                 <p>Live Chat</p>
             </div>
             <div className="chat-body">
+                <ScrollToBottom className="message-container">
             {memoizedMessageList.map((messageContent, index) => {
                 return(
                 <div className="message" id={username === messageContent.author ? "you" : "other"}>
@@ -50,6 +52,7 @@ function Chat({socket, username, room }) {
                 </div>
                 );
                 })}
+                </ScrollToBottom>
             </div>
             <div className="chat-footer">
                 <input type="text" placeholder="Hey..." onChange={(event) => {setCurrentMessage(event.target.value);
