@@ -17,7 +17,8 @@ function Chat({socket, username, room }) {
             };
 
             await socket.emit("send_message", messageData);
-            setMessageList((list) => [...list, messageData])
+            setMessageList((list) => [...list, messageData]);
+            setCurrentMessage("");
         }
     };
 
@@ -55,7 +56,7 @@ function Chat({socket, username, room }) {
                 </ScrollToBottom>
             </div>
             <div className="chat-footer">
-                <input type="text" placeholder="Hey..." onChange={(event) => {setCurrentMessage(event.target.value);
+                <input type="text" value ={currentMessage} placeholder="Hey..." onChange={(event) => {setCurrentMessage(event.target.value);
                 }} onKeyDown={(event) => {event.key === "Enter" && sendMessage()}}>       
                 </input>
                 <button onClick={sendMessage}>&#9658;</button>
