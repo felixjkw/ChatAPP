@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { memo, useEffect, useMemo, useState } from "react"
 
 function Chat({socket, username, room }) {
     const [currentMessage, setCurrentMessage] = useState("");
+    const [messageList, setMessageList] = useState([]);
+
+    const memoizedMessageList = useMemo(() => messageList, [messageList]);
 
     const sendMessage = async () => {
         if(currentMessage !== "") {
@@ -18,7 +21,7 @@ function Chat({socket, username, room }) {
 
     useEffect(() =>{
         socket.on("receive_message", (data) => {
-            console.log(data)
+            setMessageList((list) => [...list, data]);
         })
 
     }, [socket]);
@@ -30,7 +33,11 @@ function Chat({socket, username, room }) {
             <div className="chat-header">
                 <p>Live Chat</p>
             </div>
-            <div className="chat-body"></div>
+            <div className="chat-body">
+            {memoizedMessageList.map((messageContent, index) => (
+          <h1 key={index}>{messageContent.message}</h1>
+        ))}
+            </div>
             <div className="chat-footer">
                 <input type="text" placeholder="Hey..." onChange={(event) => {setCurrentMessage(event.target.value);
                 }}>       
